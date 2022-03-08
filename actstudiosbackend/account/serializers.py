@@ -4,14 +4,23 @@ from os import access
 from pyexpat import model
 from turtle import onclick
 from rest_framework import serializers
-from account.models import Account
+from account import models
 from django.apps import apps
 
 
-class ModelSerializer (serializers.ModelSerializer):
+class AccountModelSerializer (serializers.ModelSerializer):
 
     class Meta():
-        model = Account
+        model = models.Account
         # fields = '__all__'
         exclude = ['password']
+        # model = apps.get_model(appName, modelName)
+
+
+class SchoolModelSerializer (serializers.ModelSerializer):
+
+    class Meta():
+        model = models.School
+        fields = '__all__'
+        # exclude = ['password']
         # model = apps.get_model(appName, modelName)

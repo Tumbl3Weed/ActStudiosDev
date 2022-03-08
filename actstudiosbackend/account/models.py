@@ -1,7 +1,7 @@
 import email
 from email.policy import default
 import profile
-from typing_extensions import Required
+# from typing_extensions import Required
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.forms import BooleanField
@@ -84,17 +84,18 @@ class Account(AbstractBaseUser):
 
 class School(models.Model):
     name = models.CharField(unique=True, max_length=30)
-    teachersAtSchool = models.ManyToManyField('Teacher')
+    teachersAtSchool = models.ManyToManyField('Teacher', blank=True)
 
 
 class Teacher(models.Model):
-    account = models.ForeignKey(Account, required=True)
+    account = models.ForeignKey(
+        Account, default=1, on_delete=models.SET_DEFAULT)
     schoolsTeachingAt = models.ManyToManyField('School')
     studentsTeaching = models.ManyToManyField('Student')
 
 
 class Note (models.Model):
-    text = models.CharField(required=False, blank=True)
+    text = models.CharField(blank=True, max_length=250)
     date = models.DateTimeField(
         verbose_name="date attended", auto_now_add=True)
 
@@ -103,14 +104,15 @@ class Attendance (models.Model):
     date = models.DateTimeField(
         verbose_name="date attended", auto_now_add=True)
     present = models.BooleanField(default=False)
-    note = models.CharField(required=False, blank=True)
+    note = models.CharField(blank=True, max_length=250)
 
 
 class Student(models.Model):
-    account = models.ForeignKey(Account, required=False, blank=True)
-    teachers = models.ManyToManyField('Teacher')
-    parents = models.ManyToManyField('Account')
-    grade = models.CharField(required=True, max_length=8)
-    age = models.IntegerField(required=False, blank=True)
-    attendance = models.ManyToManyField('Attendance')
-    notes = models.ForeignKey('Note', required=False, blank=True)
+    name = models.CharField(max_length=25)
+    teachers = models.ManyToManyField('Teacher', blank=True)
+    parents = models.ManyToManyField('Account', blank=True)
+    grade = models.CharField(max_length=8)
+    age = models.IntegerField(blank=True)
+    attendance = models.ManyToManyField('Attendance', blank=True, null=True,)
+    # notes = models.ForeignKey(
+    #     'Note',  blank=True, null=True, on_delete=models.SET_NULL)

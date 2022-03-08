@@ -3,8 +3,8 @@ from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
 from django.apps import apps
 from django.views.decorators.csrf import csrf_exempt
-from account.models import Account
-from account.serializers import ModelSerializer
+from account import models
+from account import serializers
 from argparse import ArgumentParser
 
 
@@ -23,10 +23,12 @@ def modelCRUD(request):
 
     print(wordPlay)
     if request.method == 'GET':
-        Model = Account.objects.all()
-
-        serializer = ModelSerializer(
-            Model)
+        if 'Account' in wordPlay:
+            Model = models.Account.objects.all()
+            serializer = serializers.AccountModelSerializer(Model)
+        if 'School' in wordPlay:
+            Model = models.School.objects.all()
+            serializer = serializers.SchoolModelSerializer(Model)
 
         return JsonResponse(serializer.data, safe=False)
         return JsonResponse(serializer.error_messages, status=400)
