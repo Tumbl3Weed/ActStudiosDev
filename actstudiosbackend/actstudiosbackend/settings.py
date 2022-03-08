@@ -28,10 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-AUTH_USER_MODEL = "api.Account"
+AUTH_USER_MODEL = "account.Account"
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.AllowAllUsersModelBackend',
-    'api.backends.CaseInsensitiveModelBackend'
+    'account.backends.CaseInsensitiveModelBackend'
 )
 # Application definition
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'api',
+    'account',
 ]
 
 MIDDLEWARE = [
