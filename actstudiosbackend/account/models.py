@@ -99,6 +99,13 @@ class Note (models.Model):
         verbose_name="date attended", auto_now_add=True)
 
 
+class Attendance (models.Model):
+    date = models.DateTimeField(
+        verbose_name="date attended", auto_now_add=True)
+    present = models.BooleanField(default=False)
+    note = models.CharField(required=False, blank=True)
+
+
 class Student(models.Model):
     account = models.ForeignKey(Account, required=False, blank=True)
     teachers = models.ManyToManyField('Teacher')
@@ -107,10 +114,3 @@ class Student(models.Model):
     age = models.IntegerField(required=False, blank=True)
     attendance = models.ManyToManyField('Attendance')
     notes = models.ForeignKey('Note', required=False, blank=True)
-
-
-class Attendance (models.Model):
-    date = models.DateTimeField(
-        verbose_name="date attended", auto_now_add=True)
-    present = models.BooleanField(default=False)
-    note = models.CharField(required=False, blank=True)
