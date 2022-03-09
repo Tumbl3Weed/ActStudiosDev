@@ -83,15 +83,15 @@ class Account(AbstractBaseUser):
 
 
 class School(models.Model):
-    name = models.CharField(unique=True, max_length=30)
+    name = models.CharField(unique=True, max_length=30, blank=True)
     teachersAtSchool = models.ManyToManyField('Teacher', blank=True)
 
 
 class Teacher(models.Model):
     account = models.ForeignKey(
         Account, default=1, on_delete=models.SET_DEFAULT)
-    schoolsTeachingAt = models.ManyToManyField('School')
-    studentsTeaching = models.ManyToManyField('Student')
+    schoolsTeachingAt = models.ManyToManyField('School', blank=True)
+    studentsTeaching = models.ManyToManyField('Student', blank=True)
 
 
 class Note (models.Model):

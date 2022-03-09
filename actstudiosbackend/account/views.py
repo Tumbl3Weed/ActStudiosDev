@@ -1,3 +1,5 @@
+from asyncio.windows_events import NULL
+from gettext import NullTranslations
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth import login, authenticate
@@ -25,10 +27,23 @@ def modelCRUD(request):
     if request.method == 'GET':
         if 'Account' in wordPlay:
             Model = models.Account.objects.all()
-            serializer = serializers.AccountModelSerializer(Model)
+            serializer = serializers.AccountModelSerializer(Model, many=True)
+            print(serializer.data)
+            return JsonResponse(serializer.data, safe=False)
         if 'School' in wordPlay:
             Model = models.School.objects.all()
-            serializer = serializers.SchoolModelSerializer(Model)
+            serializer = serializers.SchoolModelSerializer(Model, many=True)
+            print(serializer.data)
+            return JsonResponse(serializer.data, safe=False)
+        if 'Teacher' in wordPlay:
+            Model = models.Teacher.objects.all()
+            serializer = serializers.TeacherModelSerializer(Model, many=True)
+            print(serializer.data)
+            return JsonResponse(serializer.data, safe=False)
+        if 'Student' in wordPlay:
+            Model = models.Student.objects.all()
+            serializer = serializers.StudentModelSerializer(Model, many=True)
+            print(serializer.data)
+            return JsonResponse(serializer.data, safe=False)
 
-        return JsonResponse(serializer.data, safe=False)
-        return JsonResponse(serializer.error_messages, status=400)
+    return JsonResponse(serializer.error_messages, status=400)
