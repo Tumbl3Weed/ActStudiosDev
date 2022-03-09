@@ -84,7 +84,8 @@ class Account(AbstractBaseUser):
 
 class School(models.Model):
     name = models.CharField(unique=True, max_length=30, blank=True)
-    teachersAtSchool = models.ManyToManyField('Teacher', blank=True)
+    teachersAtSchool = models.ManyToManyField(
+        'Teacher',  blank=True)
 
 
 class Teacher(models.Model):
@@ -113,6 +114,6 @@ class Student(models.Model):
     parents = models.ManyToManyField('Account', blank=True)
     grade = models.CharField(max_length=8)
     age = models.IntegerField(blank=True)
-    attendance = models.ManyToManyField('Attendance', blank=True, null=True,)
+    attendance = models.ManyToManyField('Attendance', blank=True)
     # notes = models.ForeignKey(
     #     'Note',  blank=True, null=True, on_delete=models.SET_NULL)
