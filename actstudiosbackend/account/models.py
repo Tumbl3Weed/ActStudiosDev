@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import email
 from email.policy import default
 import profile
@@ -91,8 +92,8 @@ class School(models.Model):
 class Teacher(models.Model):
     account = models.ForeignKey(
         Account, default=1, on_delete=models.SET_DEFAULT)
-    schoolsTeachingAt = models.ManyToManyField('School', blank=True)
     studentsTeaching = models.ManyToManyField('Student', blank=True)
+    schoolsTeachingAt = models.ManyToManyField('School', blank=True)
 
 
 class Note (models.Model):
@@ -110,10 +111,10 @@ class Attendance (models.Model):
 
 class Student(models.Model):
     name = models.CharField(max_length=25)
-    teachers = models.ManyToManyField('Teacher', blank=True)
     parents = models.ManyToManyField('Account', blank=True)
+    teachers = models.ManyToManyField('Teacher',  blank=True)
     grade = models.CharField(max_length=8)
     age = models.IntegerField(blank=True)
     attendance = models.ManyToManyField('Attendance', blank=True)
-    # notes = models.ForeignKey(
-    #     'Note',  blank=True, null=True, on_delete=models.SET_NULL)
+    notes = models.ForeignKey(
+        'Note',  blank=True, null=True, on_delete=models.CASCADE)

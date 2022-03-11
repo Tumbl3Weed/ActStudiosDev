@@ -24,7 +24,7 @@ class SchoolModelSerializer (serializers.ModelSerializer):
     class Meta():
         model = models.School
         fields = '__all__'
-        depth = 1
+        # depth = 1
 
 
 class StudentModelSerializer (serializers.ModelSerializer):
@@ -45,4 +45,4 @@ class TeacherModelSerializer (serializers.ModelSerializer):
     class Meta():
         model = models.Teacher
         fields = '__all__'
-        depth = 1
+        # depth = 1

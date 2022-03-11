@@ -1,6 +1,6 @@
-POST http://127.0.0.1:8000/api/School/
+POST  http://127.0.0.1:8000/api/School/
 
 {
-    "name": "school Namea",
-    "teachersAtSchool": 2
+    "name": "sachooaasdasdaasaasdl Namea",
+    "teachersAtSchool": [2,3]
 }
